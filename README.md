@@ -25,16 +25,23 @@ Ensure you have the following installed:
 ```sh
 git clone https://github.com/JayanthSL/jupyter_notebook_automation.git
 cd jupyter_notebook_automation
+```
 
 ### 2️⃣ Install Dependencies
 
-3️⃣ Run the Flask Application
+### 3️⃣ Run the Flask Application
+```sh
 python main.py
-4️⃣ Access the Web Interface
+```
+### 4️⃣ Access the Web Interface
+```sh
+
 Open your browser and go to:
 👉 http://localhost:5700/
+```
+### 🚀 Usage
+```sh
 
-🚀 Usage
 ▶️ Start Jupyter Notebook
 Click the "Start Jupyter" button to launch the Jupyter Notebook server.
 
@@ -49,8 +56,10 @@ Enter interval (in minutes).
 Click "Set Timer" to schedule automatic executions.
 🔄 Auto-Refresh
 The notebook automatically refreshes every 30 seconds.
+```
+### 🔗 API Endpoints
+```sh
 
-🔗 API Endpoints
 Method	Endpoint	Description
 GET	/start	Starts the Jupyter Notebook server
 GET	/stop	Stops the Jupyter Notebook server
@@ -59,8 +68,10 @@ POST	/set-timer	Sets execution timer
 🔒 Security Considerations
 ⚠️ Jupyter Notebook starts without authentication (--NotebookApp.token=).
 If deploying in production, add authentication & access control to secure the setup.
+```
+### 📜 License
+```sh
 
-📜 License
 This project is licensed under the MIT License.
 📄 See the LICENSE file for details.
-
+```
