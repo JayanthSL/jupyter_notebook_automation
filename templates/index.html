@@ -51,17 +51,15 @@
         function startAutoRefresh() {
             setInterval(() => {
                 refreshNotebook();
-            }, 30000); // Refresh every 30 seconds
+            }, 30000); 
         }
 
         function refreshNotebook() {
             let frame = document.getElementById("jupyterFrame");
             if (frame.style.display !== "none") {
-                frame.src = frame.src.split('?')[0] + '?' + new Date().getTime(); // Force refresh
+                frame.src = frame.src.split('?')[0] + '?' + new Date().getTime(); 
             }
         }
-
-        // 🔥 Auto-refresh starts when the page loads
         window.onload = function() {
             startAutoRefresh();
         };
