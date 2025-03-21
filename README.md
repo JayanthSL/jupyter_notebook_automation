@@ -25,7 +25,8 @@ Ensure you have the following installed:
 ```sh
 git clone https://github.com/JayanthSL/jupyter_notebook_automation.git
 cd jupyter_notebook_automation
-2️⃣ Install Dependencies
+
+### 2️⃣ Install Dependencies
 
 3️⃣ Run the Flask Application
 python main.py
