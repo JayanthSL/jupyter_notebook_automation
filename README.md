@@ -28,7 +28,9 @@ cd jupyter_notebook_automation
 ```
 
 ### 2️⃣ Install Dependencies
-
+```sh
+pip install flask schedule jupyter
+```
 ### 3️⃣ Run the Flask Application
 ```sh
 python main.py
