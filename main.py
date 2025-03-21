@@ -6,6 +6,8 @@ import schedule
 import time
 import threading
 import json
+import sys
+import platform
 
 app = Flask(__name__)
 
@@ -32,18 +34,25 @@ def ensure_notebook_exists():
     except Exception as e:
         print(f"Error creating notebook: {e}")
 
-
-
 def execute_notebook():
     ensure_notebook_exists()
     subprocess.run([
-        "jupyter", "nbconvert", "--to", "notebook", "--execute", "--inplace", "--allow-errors", NOTEBOOK_PATH
+        sys.executable, "-m", "jupyter", "nbconvert", "--to", "notebook", "--execute", "--inplace", "--allow-errors", NOTEBOOK_PATH
     ], check=True)
     print(f"Executed and updated {NOTEBOOK_PATH}")
+    save_notebook()
+
+def save_notebook():
+    with open(NOTEBOOK_PATH, "r") as f:
+        notebook_data = json.load(f)
+    with open(NOTEBOOK_PATH, "w") as f:
+        json.dump(notebook_data, f)
+    print(f"Notebook {NOTEBOOK_PATH} saved.")
 
 def run_scheduler():
     while True:
         schedule.run_pending()
+        save_notebook()  
         time.sleep(1)
 
 @app.route('/start', methods=['GET'])
@@ -51,7 +60,7 @@ def start_jupyter():
     global jupyter_process
     if jupyter_process is None:
         jupyter_process = subprocess.Popen([
-            "jupyter", "notebook",
+            sys.executable, "-m", "jupyter", "notebook",
             "--NotebookApp.token=",
             "--NotebookApp.password=",
             "--NotebookApp.allow_origin=*",
@@ -60,7 +69,7 @@ def start_jupyter():
             "--NotebookApp.open_browser=False",
             "--NotebookApp.tornado_settings={'headers': {'Content-Security-Policy': \"frame-ancestors 'self' http://127.0.0.1:5700 http://localhost:5700;\"}}",
             "--port=8888"
-        ])
+        ], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         return jsonify({"message": "Jupyter Notebook started"}), 200
     return jsonify({"message": "Jupyter Notebook is already running"}), 400
 
@@ -68,7 +77,10 @@ def start_jupyter():
 def stop_jupyter():
     global jupyter_process
     if jupyter_process:
-        os.kill(jupyter_process.pid, signal.SIGTERM)
+        if platform.system() == "Windows":
+            jupyter_process.terminate()  # Windows-friendly termination
+        else:
+            os.kill(jupyter_process.pid, signal.SIGTERM)  # Unix-like termination
         jupyter_process = None
         return jsonify({"message": "Jupyter Notebook stopped"}), 200
     return jsonify({"message": "Jupyter Notebook is not running"}), 400
