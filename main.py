@@ -11,20 +11,28 @@ app = Flask(__name__)
 
 jupyter_process = None
 JUPYTER_PORT = 8888
-NOTEBOOK_PATH = "Untitled.ipynb"
+NOTEBOOK_PATH = os.path.join(os.getcwd(), "Untitled.ipynb")
 execution_interval = None
 
 def ensure_notebook_exists():
-    if not os.path.exists(NOTEBOOK_PATH):
-        empty_notebook = {
-            "cells": [],
-            "metadata": {},
-            "nbformat": 4,
-            "nbformat_minor": 4
-        }
-        with open(NOTEBOOK_PATH, "w") as f:
-            json.dump(empty_notebook, f)
-        print(f"Created new notebook: {NOTEBOOK_PATH}")
+    try:
+        print("Checking if notebook exists...")
+        if not os.path.exists(NOTEBOOK_PATH):
+            empty_notebook = {
+                "cells": [],
+                "metadata": {},
+                "nbformat": 4,
+                "nbformat_minor": 4
+            }
+            with open(NOTEBOOK_PATH, "w") as f:
+                json.dump(empty_notebook, f)
+            print(f"Created new notebook: {NOTEBOOK_PATH}")
+        else:
+            print("Notebook already exists.")
+    except Exception as e:
+        print(f"Error creating notebook: {e}")
+
+
 
 def execute_notebook():
     ensure_notebook_exists()
@@ -98,4 +106,5 @@ scheduler_thread = threading.Thread(target=run_scheduler, daemon=True)
 scheduler_thread.start()
 
 if __name__ == '__main__':
+    ensure_notebook_exists()
     app.run(host="0.0.0.0", port=5700, debug=True)
