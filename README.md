@@ -1,91 +1,65 @@
-Jupyter Notebook Automation
+# 🚀 Jupyter Notebook Automation
 
-Overview
+![Jupyter](https://img.shields.io/badge/Jupyter-Automation-orange?style=flat-square)
+![Python](https://img.shields.io/badge/Python-3.x-blue?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
-This project provides a simple web interface to control a Jupyter Notebook server, execute notebooks automatically, and schedule periodic executions using Flask and Jupyter.
+## 📌 Overview  
+A web interface to **start/stop** a Jupyter Notebook server, execute notebooks, and schedule periodic runs using Flask and Jupyter.
 
-Features
+## ✨ Features  
+✅ Start & stop Jupyter Notebook from the web interface  
+✅ Execute a specific Jupyter Notebook on demand  
+✅ Set a timer for scheduled executions  
+✅ Auto-refresh embedded iframe for real-time updates  
 
-Start and stop the Jupyter Notebook server from the web interface.
+## ⚡ Prerequisites  
+Ensure you have the following installed:  
+- **Python 3.x**  
+- **Jupyter Notebook**  
+- **Flask**  
 
-Execute a specific Jupyter Notebook on demand.
+## 🔧 Installation  
 
-Set a timer to schedule automatic executions at regular intervals.
-
-Auto-refresh the notebook display in the embedded iframe.
-
-Prerequisites
-
-Ensure you have the following installed:
-
-Python 3.x
-
-Jupyter Notebook
-
-Flask
-
-Required dependencies (see installation steps below)
-
-Installation
-
-Clone the Repository:
-
+### 1️⃣ Clone the Repository  
+```sh
 git clone https://github.com/JayanthSL/jupyter_notebook_automation.git
 cd jupyter_notebook_automation
+2️⃣ Install Dependencies
 
-Install Dependencies:
-
-Run the Flask Application:
-
+3️⃣ Run the Flask Application
 python main.py
-
-Access the Web Interface:
+4️⃣ Access the Web Interface
 Open your browser and go to:
+👉 http://localhost:5700/
 
-http://localhost:5700/
-
-Usage
-
-Start Jupyter Notebook
-
+🚀 Usage
+▶️ Start Jupyter Notebook
 Click the "Start Jupyter" button to launch the Jupyter Notebook server.
 
-Stop Jupyter Notebook
-
+⏹️ Stop Jupyter Notebook
 Click "Stop Jupyter" to shut down the Jupyter server.
 
-Execute Notebook
+🏃 Execute Notebook
+Click "Run Notebook" to execute the notebook (Untitled.ipynb).
 
-Click "Run Notebook" to execute the specified notebook (Untitled.ipynb).
+⏳ Set Execution Timer
+Enter interval (in minutes).
+Click "Set Timer" to schedule automatic executions.
+🔄 Auto-Refresh
+The notebook automatically refreshes every 30 seconds.
 
-Set Execution Timer
+🔗 API Endpoints
+Method	Endpoint	Description
+GET	/start	Starts the Jupyter Notebook server
+GET	/stop	Stops the Jupyter Notebook server
+POST	/run-notebook	Executes the notebook
+POST	/set-timer	Sets execution timer
+🔒 Security Considerations
+⚠️ Jupyter Notebook starts without authentication (--NotebookApp.token=).
+If deploying in production, add authentication & access control to secure the setup.
 
-Enter the interval (in minutes) in the input field.
+📜 License
+This project is licensed under the MIT License.
+📄 See the LICENSE file for details.
 
-Click "Set Timer" to schedule automatic executions at the specified interval.
-
-Auto-Refresh
-
-The notebook iframe automatically refreshes every 30 seconds to reflect updates.
-
-API Endpoints
-
-The Flask server exposes the following endpoints:
-
-GET /start – Starts the Jupyter Notebook server.
-
-GET /stop – Stops the Jupyter Notebook server.
-
-POST /run-notebook – Executes the notebook.
-
-POST /set-timer – Sets the execution timer for automatic notebook runs.
-
-Security Considerations
-
-The notebook server is started without authentication (--NotebookApp.token=). Ensure this is safe for your use case.
-
-Consider adding authentication and access control if deploying in a production environment.
-
-License
-
-This project is licensed under the MIT License. It allows for commercial use, modification, and distribution. See the LICENSE file for details.
